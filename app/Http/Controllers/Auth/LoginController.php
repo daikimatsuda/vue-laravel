@@ -37,4 +37,28 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function authenticated(Request $request, $user)
+    {
+        return $user;
+    }
+
+    /**
+     * The user has logged out of the application.
+     * 
+     * @param \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    public function loggedOut()
+    {
+        // セッションの再生成
+        $request->session()->regenerate();
+        return response()->json();
+    }
 }

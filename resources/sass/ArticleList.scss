@@ -1,0 +1,43 @@
+@import '~bootstrap/scss/bootstrap';
+
+#ArticleList {
+  
+  .article_area {
+    @extend .border-top;
+    @extend .border-bottom;
+    @extend .py-2;
+    @extend .px-2;
+  }
+
+  .article_status {
+    @extend .text-center;
+    @extend .small;
+    @extend .py-2;
+    @extend .px-1;
+    @extend .font-weight-bold;
+    background: #e9e6e6;
+  }
+  .article_type {
+    @extend .text-center;
+    @extend .py-3;
+    @extend .px-1;
+    @extend .font-weight-bold;
+    background: #0a9740;
+    color: black;
+  }
+
+  .article_tag {
+    @extend .text-center;
+    @extend .px-2;
+    font-size: 16px;
+    display: inline-block;
+    border-radius: 3px;
+    border: 1px solid #b8dbf2;
+    background: #d5e9f7 none;
+    color: black;
+    text-decoration: none;
+    &:hover {
+      background: #c0ddf1 none;
+    }
+  }
+}

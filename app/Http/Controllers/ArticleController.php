@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Enums\ArticleType;
 
 class ArticleController extends Controller
 {
@@ -14,7 +15,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return Article::all();
+        $articles = Article::all();
+        foreach ($articles as $article) {
+            // 投稿種別画面表示用
+            $article->article_type_disp = ArticleType::getDescription($article->article_type);
+        }
+        return $articles;
     }
 
     /**
@@ -44,9 +50,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        //
+        return $article;
     }
 
     /**

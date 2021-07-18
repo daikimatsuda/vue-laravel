@@ -27,6 +27,7 @@
         "webpack": "^5.42.0"
     },
     "dependencies": {
+        "js-cookie": "^2.2.1",
         "mavon-editor": "^2.9.1",
         "vue-router": "^3.5.1",
         "vue-simple-suggest": "^1.11.1",

@@ -1,46 +1,56 @@
 <template>
-  <div class="container">
-    <div class="border">
-      <form v-on:submit.prevent="submit">
-        <div class="form-group">
-          <h1 type="text" class="col-md-12 form-control form-control-lg" v-text="article.title"></h1>
+  <div id="ArticleShow">
+      <div class="article_area py-4 px-2">
+        <div class="col-md-12">
+          <h2 type="text" v-text="article.title"></h2>
         </div>
-        <div class="form-group">
-          <p class="form-control" v-text="article.content"></p>
+        <div class="markdown_area mb-3">
+          <mavon-editor
+          :language="'ja'"
+          v-model="article.body"
+          :externalLink="mavonEditor.externalLink"
+          :subfield="false"
+          :editable="false"
+          :toolbarsFlag="false"
+          :boxShadow="false"
+          :scrollStyle="false"
+          defaultOpen="preview"
+          previewBackground="#fff"
+          ></mavon-editor>
         </div>
-        <div class="form-group">
-          <input type="text" class="col-md-12 form-control" placeholder="投稿内容の分類を入力（例：Java）">
+      </div>
+      <div class="comment_area form-group">
+        <div class="row">
+          <div class="pl-4"><h5>コメント</h5></div>
+          <div class="ml-auto pr-4"><button type="button" class="btn btn-success btn-sm" >コメント投稿</button></div>
         </div>
-        <div class="form-group">
-          <input type="text" class="col-md-12 form-control" placeholder="通知送信対象者">
+        <div class="comment pl-1 py-3">
+          <span>この記事にコメントはありません。</span>
         </div>
-        <div class="col-md-12 pl-0 d-flex">
-          <select class="form-control col-md-2">
-            <option value='' disabled selected style='display:none;'>投稿種別</option>
-            <option>質問</option>
-            <option>情報共有</option>
-            <option>技術共有</option>
-          </select>
-          <div class="col-md-4"></div>
-          <div class="col-md-6 text-right pr-0">
-            <button type="submit" class="btn btn-outline-info">プレビュー</button>
-            <button type="submit" class="btn btn-success">投稿</button>
-          </div>
-        </div>
-      </form>
-    </div>
+      </div>
   </div>
 </template>
 
 <script>
 export default {
-   props: {
-      articleId: {
-        type: Number
-      }
-    },
     data: function () {
       return {
+        mavonEditor: {
+          externalLink: {
+            markdown_css: function() {
+              return '/static/css/markdown/github-markdown.min.css'
+            },
+            hljs_js: function() {
+              return '/static/js/highlightjs/highlight.min.js'
+            },
+            katex_css: function() {
+              return '/static/css/katex/katex.min.css'
+            },
+            katex_js: function() {
+              return '/static/js/katex/katex.min.js'
+            },
+          },
+        },
         article: {}
       }
     },
@@ -54,6 +64,9 @@ export default {
     },
     mounted() {
       this.getArticle();
-    }
+    },
 }
 </script>
+<style lang="scss">
+@import "../../sass/ArticleShow.scss";
+</style>

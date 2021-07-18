@@ -13,13 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// どのパスを叩かれてもapp.blade.phpを返す。
+// app.jsでログインしていない場合は、ログインvue画面に遷移させるような処理にするといいはず
+
 Route::get('/{any}', function() {
    return view('app');
  })->where('any', '.*');
 
 Auth::routes();
-
-
-// Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// // ルーテインぐ設定
+// Route::group(['midddleware' => ['web']],function() {
+//   // ログインしていない場合
+//   if(!Auth::check()){
+//     return redirect(route('LoginPage'));
+//   }
+// });

@@ -1,3 +1,6 @@
+// クッキーを簡単に扱えるモジュールをインポート
+import Cookies from "js-cookie";
+
 window._ = require('lodash');
 
 /**
@@ -23,19 +26,21 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
+//
+window.axios.interceptors.request.use(config => {
+    //クッキーからトークンを取り出す
+    const xsrfToken = Cookies.get("XSRF-TOKEN");
+    // ヘッダーに添付する
+    config.headers["X-XSRF-TOKEN"] = xsrfToken;
+    return config;
+});
 
-// import Echo from 'laravel-echo';
+// responseの設定
+// API通信の成功、失敗のresponseの形が変わるため、どちらともresponseにレスポンスオブジェクトを代入
+window.axios.interceptors.response.use(
+    //成功時の処理
+    response => response,
+    //失敗時の処理
+    error => error.response || error
+);
 
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });

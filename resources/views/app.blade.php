@@ -10,9 +10,7 @@
 </head>
 <body>
   <div id="app">
-    <header-component></header-component>
-    <router-view />
-    <footer-component></footer-component>
+    <message />
   </div>
   <script src="{{ mix('/js/app.js') }}" defer></script>
 </body>
